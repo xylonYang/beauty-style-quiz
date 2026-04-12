@@ -56,7 +56,6 @@
     .btn-share:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,217,61,0.4); }
     .sparkle { position: fixed; pointer-events: none; z-index: 0; animation: sparkleAnim 1.5s ease-out forwards; }
     @keyframes sparkleAnim { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-100px) scale(0); } }
-    #share-card { display: none; }
     @media (max-width: 480px) { #page-start h1 { font-size: 1.8rem; } .question-card { padding: 28px 20px; } .result-type { font-size: 1.8rem; } }
   </style>
 </head>
@@ -165,40 +164,43 @@ const questions = [
     { text: "（表面淡定，内心已经在发奖状）", scoreA: 0, scoreB: 2 }]}
 ];
 
+// dimA=low: 社交内敛
 const results = {
-  'low-low':   { type: "独处修行者",   title: "内向型自省者，你在自己的世界里闪闪发光",  emoji: "🌙", color: "#6b5b95" },
-  'low-mid':   { type: "静水深流型",   title: "温和接纳型，你把平凡活成了自己的语言",    emoji: "🌿", color: "#88b04b" },
-  'low-high':  { type: "内秀外敛型",   title: "慢性子自信，你知道自己几斤几两且不在乎",  emoji: "🦋", color: "#92a8d1" },
-  'mid-low':   { type: "进击的小透明", title: "社交焦虑中的奋斗者，正在走向更舒展的自己", emoji: "🌱", color: "#f7cac9" },
-  'mid-mid':   { type: "稳扎稳打型",   title: "真实系玩家，好看不好看我都在认真做自己",  emoji: "☀️", color: "#de7c5a" },
-  'mid-high':  { type: "氛围感大师",  title: "慢热发光的你，自带让人上瘾的气场",         emoji: "✨", color: "#b565a7" },
-  'high-low':  { type: "反焦虑天花板", title: "你已经跳出了颜值的评判体系，完全做自己",  emoji: "🦅", color: "#45b8ac" },
-  'high-mid':  { type: "耐看气质型",   title: "越看越上头的款，你是时间检验过的经典",    emoji: "🌸", color: "#eFC6b0" },
-  'high-high': { type: "天赋溢出型",  title: "老天爷亲手打造的孤品，请珍惜限量版的脸",  emoji: "👑", color: "#ffd93d" }
+  'low-low':   { type: "独处修行者", title: "内向型自省者，你在自己的世界里闪闪发光", emoji: "🏔️" },
+  'low-mid':   { type: "静水深潭型", title: "温和接纳型，把平凡活成了深沉的力量", emoji: "🌊" },
+  'low-high':  { type: "治愈温暖型", title: "慢性子自信，不张扬却让人忍不住靠近", emoji: "🌿" },
+  // dimA=mid: 社交平常
+  'mid-low':   { type: "进击小透明", title: "社交焦虑中的奋斗者，正在走向更舒展的自己", emoji: "🌱" },
+  'mid-mid':   { type: "靠谱本谱型", title: "真实系玩家，好看不好看我都在认真做自己", emoji: "🪷" },
+  'mid-high':  { type: "氛围感大师", title: "慢热发光的你，自带让人上瘾的气场", emoji: "✨" },
+  // dimA=high: 社交自信
+  'high-low':  { type: "反焦虑天花板", title: "你已经跳出了颜值的评判体系，完全做自己", emoji: "🦋" },
+  'high-mid':  { type: "耐看雅典型", title: "越看越上头的款，你是时间检验过的经典", emoji: "🏛️" },
+  'high-high': { type: "天赋弥尔顿型", title: "老天爷亲手打造的孤品，请珍惜限量版的脸", emoji: "👑" }
 };
 
 const compliments = {
   'low-low':   "你不喜欢主动出击，但你的内心有一个完整的宇宙。别人看不到你的光芒，但你自己知道。你不需要靠外表来证明什么，因为你早就跳出了这个评判体系。",
-  'low-mid':   "你对镜子里的那个人没有太多期待，但也没有放弃。这种刚刚好的状态，其实是很多人修炼很久才能到达的境界——不焦虑、不拧巴、不为难自己。",
-  'low-high':  "你是那种「我知道自己好看不好看，但我根本不在乎」的人。这种松弛感，是顶级的魅力。你不需要向任何人解释你的脸。",
+  'low-mid':   "你的好看是静水深潭那种——表面波澜不惊，底下是别人看不见的深度。你不炫耀、不解释，但懂的人自然会被你吸引。这是只有时间才能沉淀出来的高级感。",
+  'low-high':  "你是那种让人忍不住想靠近的类型——没有攻击性，但有温度。你的存在本身就像一杯温热的茶，喝下去，整个世界都柔和了一点。你不需要改变什么，保持就好。",
   'mid-low':   "你正在路上。从不太自信到完全接纳自己，这条路你走得踏实。每一次「还敢发自拍」的小进步，都在把自己推向更舒展的版本。",
   'mid-mid':   "你是那种真实到可爱的人——不装、不演、不P图，但也不炫。你接受镜子里那个人，不捧杀也不贬低。这份平常心，是最高级的颜值。",
   'mid-high':  "你不是那种第一眼就炸裂的类型，但你是那种——看完一眼想看第二眼、看到天亮都不腻的类型。你的美是陈年老酒，是越品越有味的禁书。",
   'high-low':  "你已经完全跳出了颜值的游戏规则。你不在别人的评分体系里跑，你根本不跟她们同场竞技。这叫什么？这叫——活透了。",
-  'high-mid':  "你的好看是经得起时间考验的那种——不是网红脸的流星，是经典款的常青树。你站在那里，连风都要多停留两秒。",
+  'high-mid':  "你的好看是建筑奇迹那种——经得起时间、角度、挑剔的所有考验。雅典娜不是因为张扬才成为女神，你也是。经典从来不需要解释。",
   'high-high': "你的脸是老天爷想打造精品时不小心做出来的孤品。你不是在照镜子，是镜子在庆幸能框住你。请珍惜，这是限量版。"
 };
 
 const tagsMap = {
   'low-low':   ["独处型", "内省者", "自我接纳", "佛系"],
-  'low-mid':   ["刚刚好", "无龄感", "松弛", "真实"],
-  'low-high':  ["外冷内热", "不在乎", "高级感", "躺平大师"],
+  'low-mid':   ["静水深", "深沉型", "有故事", "不张扬"],
+  'low-high':  ["治愈系", "温暖型", "让人安心", "有温度"],
   'mid-low':   ["潜力股", "成长型", "慢慢变好", "勇敢"],
   'mid-mid':   ["真实系", "不装", "稳", "生活家"],
   'mid-high':  ["氛围感", "慢热", "上头", "回味型"],
   'high-low':  ["反内卷", "通透", "自我", "觉醒"],
-  'high-mid':  ["经典款", "耐看", "常青", "稳定输出"],
-  'high-high':["天赋型", "老天爷赏饭", "限量版", "孤品"]
+  'high-mid':  ["经典款", "耐看", "雅典", "稳定输出"],
+  'high-high': ["天赋型", "老天爷赏饭", "限量版", "孤品"]
 };
 
 let currentQ = 0;
@@ -285,7 +287,6 @@ function showPage(name) {
 
 function wrapText(ctx, text, maxWidth, fontSize) {
   ctx.font = fontSize + 'px PingFang SC, Microsoft YaHei';
-  if (ctx.measureText(text).width <= maxWidth) return [text];
   const words = text.split(''); let line = ''; const lines = [];
   for (let i = 0; i < words.length; i++) {
     const testLine = line + words[i];
@@ -293,7 +294,8 @@ function wrapText(ctx, text, maxWidth, fontSize) {
       lines.push(line); line = words[i];
     } else { line = testLine; }
   }
-  lines.push(line); return lines;
+  if (line) lines.push(line);
+  return lines;
 }
 
 function exportShareCard() {
@@ -312,76 +314,89 @@ function exportShareCard() {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, 800, 1000);
 
-  // Orbs
-  const c1 = ctx.createRadialGradient(80, 120, 5, 80, 120, 280);
-  c1.addColorStop(0, 'rgba(255,107,157,0.25)'); c1.addColorStop(1, 'rgba(255,107,157,0)');
+  // Decorative orbs
+  const c1 = ctx.createRadialGradient(60, 100, 5, 60, 100, 260);
+  c1.addColorStop(0, 'rgba(255,107,157,0.22)'); c1.addColorStop(1, 'rgba(255,107,157,0)');
   ctx.fillStyle = c1;
-  ctx.beginPath(); ctx.arc(80, 120, 280, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(60, 100, 260, 0, Math.PI*2); ctx.fill();
 
-  const c2 = ctx.createRadialGradient(720, 850, 5, 720, 850, 280);
-  c2.addColorStop(0, 'rgba(196,76,255,0.25)'); c2.addColorStop(1, 'rgba(196,76,255,0)');
+  const c2 = ctx.createRadialGradient(740, 870, 5, 740, 870, 260);
+  c2.addColorStop(0, 'rgba(196,76,255,0.22)'); c2.addColorStop(1, 'rgba(196,76,255,0)');
   ctx.fillStyle = c2;
-  ctx.beginPath(); ctx.arc(720, 850, 280, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(740, 870, 260, 0, Math.PI*2); ctx.fill();
+
+  const PAD = 80; // side padding
+  const contentW = 800 - PAD * 2;
 
   // Top label
-  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
   ctx.font = '20px PingFang SC, Microsoft YaHei';
   ctx.textAlign = 'center';
-  ctx.fillText('照照镜子测试 · 颜值人格报告', 400, 70);
+  ctx.fillText('照照镜子测试 · 颜值人格报告', 400, 80);
 
-  // Emoji
-  ctx.font = '130px serif';
-  ctx.fillText(r.emoji, 400, 230);
+  // Emoji figure (larger, more prominent)
+  ctx.font = '140px serif';
+  ctx.fillText(r.emoji, 400, 240);
 
-  // Type name - BIG
-  ctx.font = 'bold 68px PingFang SC, Microsoft YaHei';
+  // Type name - big, bold
+  ctx.font = 'bold 62px PingFang SC, Microsoft YaHei';
   ctx.fillStyle = '#ffffff';
-  ctx.fillText(r.type, 400, 320);
+  ctx.textAlign = 'center';
+  ctx.fillText(r.type, 400, 330);
 
   // Subtitle
-  ctx.font = '26px PingFang SC, Microsoft YaHei';
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.fillText(r.title, 400, 375);
+  ctx.font = '24px PingFang SC, Microsoft YaHei';
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.fillText(r.title, 400, 382);
 
   // Gradient divider
-  const dg = ctx.createLinearGradient(150, 0, 650, 0);
+  const dg = ctx.createLinearGradient(PAD + 40, 0, 800 - PAD - 40, 0);
   dg.addColorStop(0, 'rgba(255,107,157,0)');
-  dg.addColorStop(0.5, 'rgba(255,107,157,0.7)');
+  dg.addColorStop(0.5, 'rgba(255,107,157,0.6)');
   dg.addColorStop(1, 'rgba(196,76,255,0)');
-  ctx.strokeStyle = dg; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(150, 410); ctx.lineTo(650, 410); ctx.stroke();
+  ctx.strokeStyle = dg; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(PAD + 40, 415); ctx.lineTo(800 - PAD - 40, 415); ctx.stroke();
 
   // Tags
   const tags = tagsMap[key];
-  let tagX = 400 - (tags.length * 108) / 2;
+  const tagFontSize = 19;
+  ctx.font = tagFontSize + 'px PingFang SC, Microsoft YaHei';
+  let totalTagW = 0;
+  const tagHeights = [];
   tags.forEach(tag => {
-    const tw = ctx.measureText(tag).width + 32;
-    ctx.fillStyle = 'rgba(255,255,255,0.1)';
+    const tw = ctx.measureText(tag).width + 36;
+    totalTagW += tw + 14;
+  });
+  let tagX = 400 - totalTagW / 2;
+  tags.forEach(tag => {
+    const tw = ctx.measureText(tag).width + 36;
+    ctx.fillStyle = 'rgba(255,255,255,0.08)';
     ctx.beginPath();
-    ctx.roundRect(tagX, 435, tw, 40, 20);
+    ctx.roundRect(tagX, 435, tw, 38, 19);
     ctx.fill();
-    ctx.fillStyle = 'rgba(255,255,255,0.6)';
-    ctx.font = '20px PingFang SC, Microsoft YaHei';
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
     ctx.textAlign = 'center';
-    ctx.fillText(tag, tagX + tw/2, 463);
-    tagX += tw + 12;
+    ctx.fillText(tag, tagX + tw / 2, 462);
+    tagX += tw + 14;
   });
 
-  // Compliment lines (big, readable)
+  // Compliment text - SMALLER font, more padding
   const comp = compliments[key];
-  const lines = wrapText(ctx, comp, 680, 30);
-  let ly = 530;
-  lines.slice(0, 4).forEach(line => {
-    ctx.font = '30px PingFang SC, Microsoft YaHei';
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+  const compFontSize = 25;
+  const compLines = wrapText(ctx, comp, contentW - 20, compFontSize);
+  let ly = 515;
+  const lineHeight = 42;
+  compLines.slice(0, 5).forEach(line => {
+    ctx.font = compFontSize + 'px PingFang SC, Microsoft YaHei';
+    ctx.fillStyle = 'rgba(255,255,255,0.78)';
     ctx.textAlign = 'center';
     ctx.fillText(line, 400, ly);
-    ly += 48;
+    ly += lineHeight;
   });
 
   // Bottom watermark
-  ctx.font = '18px PingFang SC, Microsoft YaHei';
-  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.font = '17px PingFang SC, Microsoft YaHei';
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
   ctx.fillText('照照镜子测试 · LookMirror © 2026', 400, 960);
 
   // Download
