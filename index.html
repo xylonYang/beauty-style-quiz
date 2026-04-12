@@ -64,23 +64,16 @@
 <div class="orb orb2"></div>
 <div class="orb orb3"></div>
 
-<!-- START -->
 <div id="page-start" class="page active">
   <div>
-    <span class="hero-emoji">🪞</span>
+    <span class="hero-emoji">&#x1F9DE;</span>
     <h1>照照镜子测试</h1>
     <p class="subtitle">LOOK MIRROR TEST</p>
-    <p class="desc">
-      这不是一个评判你颜值的测试。<br>
-      10道题，测出你在「社交自信」<br>
-      和「自我感知」两个维度上的位置。<br><br>
-      结果，可能会出乎你的意料。
-    </p>
-    <button class="btn-start" onclick="startTest()">开始测试 →</button>
+    <p class="desc">这不是一个评判你颜值的测试。<br>10道题，测出你在「社交自信」<br>和「自我感知」两个维度上的位置。<br><br>结果，可能会出乎你的意料。</p>
+    <button class="btn-start" onclick="startTest()">开始测试 &#x2192;</button>
   </div>
 </div>
 
-<!-- QUESTION -->
 <div id="page-question" class="page">
   <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
   <div class="question-card">
@@ -90,7 +83,6 @@
   </div>
 </div>
 
-<!-- RESULT -->
 <div id="page-result" class="page">
   <div class="result-card">
     <div class="result-badge">你的颜值人格报告</div>
@@ -104,14 +96,14 @@
     <div class="result-divider"></div>
     <div class="result-compliment" id="rCompliment"></div>
     <div class="result-tags" id="rTags"></div>
-    <button class="btn-share" onclick="exportShareCard()"><span>📤</span> 发朋友圈炫耀一下</button>
-    <div class="result-footer">照照镜子测试 · LookMirror © 2026</div>
+    <button class="btn-share" onclick="exportShareCard()"><span>&#x1F4E4;</span> 发朋友圈炫耀一下</button>
+    <div class="result-footer">照照镜子测试 &middot; LookMirror &copy; 2026</div>
   </div>
-  <button class="btn-retry" onclick="retry()">再测一次 🔄</button>
+  <button class="btn-retry" onclick="retry()">再测一次 &#x1F504;</button>
 </div>
 
 <script>
-const questions = [
+var questions = [
   { q: "在陌生人多的场合，你的状态是？", opts: [
     { text: "稳得很，主动social", scoreA: 3, scoreB: 0 },
     { text: "还行，等别人来搭话", scoreA: 2, scoreB: 0 },
@@ -164,20 +156,19 @@ const questions = [
     { text: "（表面淡定，内心已经在发奖状）", scoreA: 0, scoreB: 2 }]}
 ];
 
-// 图片URL：维基百科/大都会博物馆公开艺术品，CORS全支持
-const results = {
+var results = {
   'low-low':   { type: "独处修行者", title: "内向型自省者，你在自己的世界里闪闪发光", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Le_Penseur_by_Rodin_%28Kunsthalle_Bielefeld%29_2014-04-10.JPG/330px-Le_Penseur_by_Rodin_%28Kunsthalle_Bielefeld%29_2014-04-10.JPG" },
   'low-mid':   { type: "静水深潭型", title: "温和接纳型，把平凡活成了深沉的力量", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/330px-1665_Girl_with_a_Pearl_Earring.jpg" },
-  'low-high':  { type: "治愈温暖型", title: "慢性子自信，不张扬却让人忍不住靠近", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/330px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg" },
+  'low-high':  { type: "治愈温暖型", title: "慢性子自信，不张扬却让人忍不住靠近", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/400px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg" },
   'mid-low':   { type: "进击小透明", title: "社交焦虑中的奋斗者，正在走向更舒展的自己", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/330px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg" },
   'mid-mid':   { type: "靠谱本谱型", title: "真实系玩家，好看不好看我都在认真做自己", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Jean-Baptiste-Camille_Corot_053.jpg/400px-Jean-Baptiste-Camille_Corot_053.jpg" },
   'mid-high':  { type: "氛围感大师", title: "慢热发光的你，自带让人上瘾的气场", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Lady_with_an_Ermine_-_Leonardo_da_Vinci_%28adjusted_levels%29.jpg/330px-Lady_with_an_Ermine_-_Leonardo_da_Vinci_%28adjusted_levels%29.jpg" },
-  'high-low':  { type: "反焦虑天花板", title: "你已经跳出了颜值的评判体系，完全做自己", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/La_Libert%C3%A9_guidant_le_peuple_-_Eug%C3%A8ne_Delacroix_-_Mus%C3%A9e_du_Louvre_Peintures_RF_129_-_apr%C3%A8s_restauration_2024.jpg/330px-La_Libert%C3%A9_guidant_le_peuple_-_Eug%C3%A8ne_Delacroix_-_Mus%C3%A9e_du_Louvre_Peintures_RF_129_-_apr%C3%A8s_restauration_2024.jpg" },
+  'high-low':  { type: "反焦虑天花板", title: "你已经跳出了颜值的评判体系，完全做自己", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/La_Libert%C3%A9_guidant_le_peuple_-_Eug%C3%A8ne_Delacroix_-_Mus%C3%A9e_du_Louvre_Peintures_RF_129_-_apr%C3%A8s_restauration_2024.jpg/400px-La_Libert%C3%A9_guidant_le_peuple_-_Eug%C3%A8ne_Delacroix_-_Mus%C3%A9e_du_Louvre_Peintures_RF_129_-_apr%C3%A8s_restauration_2024.jpg" },
   'high-mid':  { type: "耐看雅典型", title: "越看越上头的款，你是时间检验过的经典", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Mattei_Athena_Louvre_Ma530_n2.jpg/330px-Mattei_Athena_Louvre_Ma530_n2.jpg" },
   'high-high': { type: "天赋弥尔顿型", title: "老天爷亲手打造的孤品，请珍惜限量版的脸", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Apollo_del_Belvedere.jpg/330px-Apollo_del_Belvedere.jpg" }
 };
 
-const compliments = {
+var compliments = {
   'low-low':   "你不喜欢主动出击，但你的内心有一个完整的宇宙。别人看不到你的光芒，但你自己知道。你不需要靠外表来证明什么，因为你早就跳出了这个评判体系。",
   'low-mid':   "你的好看是静水深潭那种——表面波澜不惊，底下是别人看不见的深度。你不炫耀、不解释，但懂的人自然会被你吸引。这是只有时间才能沉淀出来的高级感。",
   'low-high':  "你是那种让人忍不住想靠近的类型——没有攻击性，但有温度。你的存在本身就像一杯温热的茶，喝下去，整个世界都柔和了一点。你不需要改变什么，保持就好。",
@@ -189,7 +180,7 @@ const compliments = {
   'high-high': "你的脸是老天爷想打造精品时不小心做出来的孤品。你不是在照镜子，是镜子在庆幸能框住你。请珍惜，这是限量版。"
 };
 
-const tagsMap = {
+var tagsMap = {
   'low-low':   ["独处型", "内省者", "自我接纳", "佛系"],
   'low-mid':   ["静水深", "深沉型", "有故事", "不张扬"],
   'low-high':  ["治愈系", "温暖型", "让人安心", "有温度"],
@@ -201,9 +192,9 @@ const tagsMap = {
   'high-high': ["天赋型", "老天爷赏饭", "限量版", "孤品"]
 };
 
-let currentQ = 0;
-let scoreA = 0;
-let scoreB = 0;
+var currentQ = 0;
+var scoreA = 0;
+var scoreB = 0;
 
 function startTest() {
   currentQ = 0; scoreA = 0; scoreB = 0;
@@ -217,17 +208,17 @@ function getDimLevel(score) {
 }
 
 function renderQuestion() {
-  const q = questions[currentQ];
+  var q = questions[currentQ];
   document.getElementById('qNum').textContent = '第 ' + (currentQ + 1) + ' / ' + questions.length + ' 题';
   document.getElementById('qText').textContent = q.q;
   document.getElementById('progress').style.width = (currentQ / questions.length * 100) + '%';
-  const optsEl = document.getElementById('options');
+  var optsEl = document.getElementById('options');
   optsEl.innerHTML = '';
-  q.opts.forEach(opt => {
-    const btn = document.createElement('button');
+  q.opts.forEach(function(opt) {
+    var btn = document.createElement('button');
     btn.className = 'option-btn';
     btn.textContent = opt.text;
-    btn.onclick = () => selectOption(opt.scoreA, opt.scoreB);
+    btn.onclick = function() { selectOption(opt.scoreA, opt.scoreB); };
     optsEl.appendChild(btn);
   });
 }
@@ -240,20 +231,20 @@ function selectOption(sA, sB) {
 
 function showResult() {
   document.getElementById('progress').style.width = '100%';
-  setTimeout(() => { showPage('result'); renderResult(); createSparkles(); }, 400);
+  setTimeout(function() { showPage('result'); renderResult(); createSparkles(); }, 400);
 }
 
 function renderResult() {
-  const key = getDimLevel(scoreA) + '-' + getDimLevel(scoreB);
-  const r = results[key];
+  var key = getDimLevel(scoreA) + '-' + getDimLevel(scoreB);
+  var r = results[key];
   document.getElementById('rType').textContent = r.type;
   document.getElementById('rTitle').textContent = r.title;
   document.getElementById('rPortrait').src = r.img;
   document.getElementById('rCompliment').textContent = compliments[key];
-  const tagsEl = document.getElementById('rTags');
+  var tagsEl = document.getElementById('rTags');
   tagsEl.innerHTML = '';
-  tagsMap[key].forEach(tag => {
-    const span = document.createElement('span');
+  tagsMap[key].forEach(function(tag) {
+    var span = document.createElement('span');
     span.className = 'result-tag';
     span.textContent = tag;
     tagsEl.appendChild(span);
@@ -261,33 +252,37 @@ function renderResult() {
 }
 
 function createSparkles() {
-  const emojis = ['✨', '💫', '⭐', '🌟', '💥', '🦋', '🌸', '🍀'];
-  for (let i = 0; i < 20; i++) {
-    setTimeout(() => {
-      const el = document.createElement('div');
-      el.className = 'sparkle';
-      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.top = Math.random() * 100 + 'vh';
-      el.style.fontSize = (Math.random() * 20 + 12) + 'px';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1500);
-    }, i * 80);
+  var emojis = ['&#x2728;', '&#x1F4AB;', '&#x2B50;', '&#x1F31F;', '&#x1F4A5;', '&#x1F98B;', '&#x1F338;', '&#x1F340;'];
+  for (var i = 0; i < 20; i++) {
+    (function(j) {
+      setTimeout(function() {
+        var el = document.createElement('div');
+        el.className = 'sparkle';
+        el.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.top = Math.random() * 100 + 'vh';
+        el.style.fontSize = (Math.random() * 20 + 12) + 'px';
+        document.body.appendChild(el);
+        setTimeout(function() { el.remove(); }, 1500);
+      }, j * 80);
+    })(i);
   }
 }
 
 function retry() { showPage('start'); }
 
 function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
   document.getElementById('page-' + name).classList.add('active');
 }
 
 function wrapText(ctx, text, maxWidth, fontSize) {
   ctx.font = fontSize + 'px PingFang SC, Microsoft YaHei';
-  const words = text.split(''); let line = ''; const lines = [];
-  for (let i = 0; i < words.length; i++) {
-    const testLine = line + words[i];
+  var words = text.split('');
+  var line = '';
+  var lines = [];
+  for (var i = 0; i < words.length; i++) {
+    var testLine = line + words[i];
     if (ctx.measureText(testLine).width > maxWidth && i > 0) {
       lines.push(line); line = words[i];
     } else { line = testLine; }
@@ -297,64 +292,58 @@ function wrapText(ctx, text, maxWidth, fontSize) {
 }
 
 function exportShareCard() {
-  const key = getDimLevel(scoreA) + '-' + getDimLevel(scoreB);
-  const r = results[key];
+  var key = getDimLevel(scoreA) + '-' + getDimLevel(scoreB);
+  var r = results[key];
+  var PAD = 80;
 
-  const canvas = document.createElement('canvas');
+  var canvas = document.createElement('canvas');
   canvas.width = 800; canvas.height = 1000;
-  const ctx = canvas.getContext('2d');
+  var ctx = canvas.getContext('2d');
 
   // Background
-  const grad = ctx.createLinearGradient(0, 0, 800, 1000);
+  var grad = ctx.createLinearGradient(0, 0, 800, 1000);
   grad.addColorStop(0, '#1a1a2e');
   grad.addColorStop(0.5, '#16213e');
   grad.addColorStop(1, '#0f0f1a');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, 800, 1000);
 
-  // Decorative orbs
-  const c1 = ctx.createRadialGradient(60, 100, 5, 60, 100, 260);
-  c1.addColorStop(0, 'rgba(255,107,157,0.22)'); c1.addColorStop(1, 'rgba(255,107,157,0)');
+  // Orbs
+  var c1 = ctx.createRadialGradient(60, 100, 5, 60, 100, 260);
+  c1.addColorStop(0, 'rgba(255,107,157,0.22)');
+  c1.addColorStop(1, 'rgba(255,107,157,0)');
   ctx.fillStyle = c1;
-  ctx.beginPath(); ctx.arc(60, 100, 260, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(60, 100, 260, 0, Math.PI * 2); ctx.fill();
 
-  const c2 = ctx.createRadialGradient(740, 870, 5, 740, 870, 260);
-  c2.addColorStop(0, 'rgba(196,76,255,0.22)'); c2.addColorStop(1, 'rgba(196,76,255,0)');
+  var c2 = ctx.createRadialGradient(740, 870, 5, 740, 870, 260);
+  c2.addColorStop(0, 'rgba(196,76,255,0.22)');
+  c2.addColorStop(1, 'rgba(196,76,255,0)');
   ctx.fillStyle = c2;
-  ctx.beginPath(); ctx.arc(740, 870, 260, 0, Math.PI*2); ctx.fill();
-
-  const PAD = 80;
+  ctx.beginPath(); ctx.arc(740, 870, 260, 0, Math.PI * 2); ctx.fill();
 
   // Top label
   ctx.fillStyle = 'rgba(255,255,255,0.3)';
   ctx.font = '20px PingFang SC, Microsoft YaHei';
   ctx.textAlign = 'center';
-  ctx.fillText('照照镜子测试 · 颜值人格报告', 400, 80);
+  ctx.fillText('\u7167\u7167\u955c\u5b50\u6d4b\u8bd5 \u00b7 \u989c\u503c\u4eba\u683c\u62a5\u544a', 400, 80);
 
-  // Portrait image (circle crop)
-  const img = new Image();
+  // Portrait circle
+  var img = new Image();
   img.crossOrigin = 'anonymous';
   img.onload = function() {
-    // Draw circular portrait
-    const px = 400, py = 220, pr = 100;
+    var px = 400, py = 220, pr = 100;
     ctx.save();
     ctx.beginPath();
     ctx.arc(px, py, pr, 0, Math.PI * 2);
     ctx.closePath();
     ctx.clip();
-
-    // Shadow
     ctx.shadowColor = 'rgba(196,76,255,0.5)';
     ctx.shadowBlur = 30;
     ctx.drawImage(img, px - pr, py - pr, pr * 2, pr * 2);
     ctx.restore();
-
-    // Circle border
     ctx.strokeStyle = 'rgba(255,255,255,0.25)';
     ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.arc(px, py, pr, 0, Math.PI * 2);
-    ctx.stroke();
+    ctx.beginPath(); ctx.arc(px, py, pr, 0, Math.PI * 2); ctx.stroke();
 
     // Type name
     ctx.font = 'bold 58px PingFang SC, Microsoft YaHei';
@@ -367,66 +356,73 @@ function exportShareCard() {
     ctx.fillStyle = 'rgba(255,255,255,0.5)';
     ctx.fillText(r.title, 400, 415);
 
-    // Gradient divider
-    const dg = ctx.createLinearGradient(PAD + 40, 0, 800 - PAD - 40, 0);
+    // Divider
+    var dg = ctx.createLinearGradient(PAD + 40, 0, 800 - PAD - 40, 0);
     dg.addColorStop(0, 'rgba(255,107,157,0)');
-    dg.addColorStop(0.5, 'rgba(255,    dg.addColorStop(0, 'rgba(255,107,157,0)');
     dg.addColorStop(0.5, 'rgba(255,107,157,0.6)');
     dg.addColorStop(1, 'rgba(196,76,255,0)');
-    ctx.strokeStyle = dg; ctx.lineWidth = 1.5;
+    ctx.strokeStyle = dg;
+    ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.moveTo(PAD + 40, 445); ctx.lineTo(800 - PAD - 40, 445); ctx.stroke();
 
     // Tags
-    const tags = tagsMap[key];
-    const tagFontSize = 19;
-    ctx.font = tagFontSize + 'px PingFang SC, Microsoft YaHei';
-    let totalTagW = 0;
-    tags.forEach(tag => { totalTagW += ctx.measureText(tag).width + 36 + 14; });
-    let tagX = 400 - totalTagW / 2;
-    tags.forEach(tag => {
-      const tw = ctx.measureText(tag).width + 36;
+    var tags = tagsMap[key];
+    ctx.font = '19px PingFang SC, Microsoft YaHei';
+    var totalTagW = 0;
+    for (var ti = 0; ti < tags.length; ti++) { totalTagW += ctx.measureText(tags[ti]).width + 50; }
+    var tagX = 400 - totalTagW / 2;
+    for (var tj = 0; tj < tags.length; tj++) {
+      var tag = tags[tj];
+      var tw = ctx.measureText(tag).width + 36;
       ctx.fillStyle = 'rgba(255,255,255,0.08)';
-      ctx.beginPath();
-      ctx.roundRect(tagX, 465, tw, 38, 19);
-      ctx.fill();
+      ctx.beginPath(); ctx.roundRect(tagX, 465, tw, 38, 19); ctx.fill();
       ctx.fillStyle = 'rgba(255,255,255,0.55)';
       ctx.textAlign = 'center';
       ctx.fillText(tag, tagX + tw / 2, 492);
       tagX += tw + 14;
-    });
+    }
 
     // Compliment text
-    const comp = compliments[key];
-    const compFontSize = 24;
-    const compLines = wrapText(ctx, comp, 640, compFontSize);
-    let ly = 545;
-    compLines.slice(0, 5).forEach(line => {
-      ctx.font = compFontSize + 'px PingFang SC, Microsoft YaHei';
+    var comp = compliments[key];
+    var compLines = wrapText(ctx, comp, 640, 24);
+    var ly = 545;
+    for (var ci = 0; ci < Math.min(compLines.length, 5) ; ci++) {
+      ctx.font = '24px PingFang SC, Microsoft YaHei';
       ctx.fillStyle = 'rgba(255,255,255,0.78)';
       ctx.textAlign = 'center';
-      ctx.fillText(line, 400, ly);
+      ctx.fillText(compLines[ci], 400, ly);
       ly += 44;
-    });
+    }
 
-    // Bottom watermark
+    // Watermark
     ctx.font = '17px PingFang SC, Microsoft YaHei';
     ctx.fillStyle = 'rgba(255,255,255,0.18)';
-    ctx.fillText('照照镜子测试 · LookMirror © 2026', 400, 960);
+    ctx.fillText('\u7167\u7167\u955c\u5b50\u6d4b\u8bd5 \u00b7 LookMirror \u00a9 2026', 400, 960);
 
     // Download
-    const link = document.createElement('a');
-    link.download = '颜值人格报告-' + r.type + '.png';
-    link.href = canvas.toDataURL('image/png');
+    var link = document.createElement('a');
+    link.href = canvas.toDataURL("image/png");
     link.click();
   };
   img.onerror = function() {
-    // Fallback: draw placeholder if image fails to load
-    ctx.font = '100px serif';
-    ctx.fillText('🎭', 400, 240);
-    ctx.font = 'bold 58px PingFang SC, Microsoft YaHei';
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
+    var px = 400, py = 220, pr = 100;
+    ctx.font = "100px serif";
+    ctx.fillText("🎭", 400, 240);
+    ctx.font = "bold 58px PingFang SC, Microsoft YaHei";
+    ctx.fillStyle = "#ffffff";
+    ctx.textAlign = "center";
     ctx.fillText(r.type, 400, 365);
+    ctx.fillText(r.title, 400, 415);
+    var comp = compliments[key];
+    var compLines = wrapText(ctx, comp, 640, 24);
+    var ly = 545;
+    for (var ci = 0; ci < Math.min(compLines.length, 5); ci++) {
+      ctx.font = "24px PingFang SC, Microsoft YaHei";
+      ctx.fillStyle = "rgba(255,255,255,0.78)";
+      ctx.textAlign = "center";
+      ctx.fillText(compLines[ci], 400, ly);
+      ly += 44;
+    }
   };
   img.src = r.img;
 }
