@@ -6,282 +6,61 @@
   <title>照照镜子测试 | LookMirror</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: #fff;
-    }
-
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%); min-height: 100vh; overflow-x: hidden; color: #fff; }
     .page { display: none; min-height: 100vh; position: relative; }
     .page.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
-    /* floating orbs */
-    .orb {
-      position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.3; pointer-events: none; z-index: 0;
-      animation: float 8s ease-in-out infinite;
-    }
+    .orb { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.3; pointer-events: none; z-index: 0; animation: float 8s ease-in-out infinite; }
     .orb1 { width: 300px; height: 300px; background: #ff6b9d; top: -100px; left: -100px; animation-delay: 0s; }
     .orb2 { width: 250px; height: 250px; background: #c44cff; bottom: -80px; right: -80px; animation-delay: 3s; }
     .orb3 { width: 200px; height: 200px; background: #ffd93d; top: 50%; left: 50%; animation-delay: 1.5s; }
-    @keyframes float {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-30px) scale(1.1); }
-    }
-
-    /* START PAGE */
+    @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.1); } }
     #page-start { text-align: center; z-index: 1; }
-    #page-start .hero-emoji {
-      font-size: 80px;
-      margin-bottom: 20px;
-      animation: bounce 2s ease-in-out infinite;
-      display: block;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    #page-start h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ff6b9d, #ffd93d, #c44cff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
-    #page-start .subtitle {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 40px;
-      letter-spacing: 4px;
-    }
-    #page-start .desc {
-      max-width: 360px;
-      margin: 0 auto 40px;
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.8;
-    }
-    .btn-start {
-      background: linear-gradient(135deg, #ff6b9d, #c44cff);
-      border: none;
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 700;
-      padding: 16px 48px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s;
-      letter-spacing: 2px;
-    }
+    .hero-emoji { font-size: 80px; margin-bottom: 20px; animation: bounce 2s ease-in-out infinite; display: block; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    #page-start h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, #ff6b9d, #ffd93d, #c44cff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .subtitle { font-size: 1rem; color: rgba(255,255,255,0.5); margin-bottom: 40px; letter-spacing: 4px; }
+    .desc { max-width: 360px; margin: 0 auto 40px; font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.8; }
+    .btn-start { background: linear-gradient(135deg, #ff6b9d, #c44cff); border: none; color: #fff; font-size: 1.1rem; font-weight: 700; padding: 16px 48px; border-radius: 50px; cursor: pointer; transition: all 0.3s; letter-spacing: 2px; }
     .btn-start:hover { transform: scale(1.08); box-shadow: 0 0 40px rgba(196,76,255,0.5); }
-
-    /* QUESTION PAGE */
     #page-question { z-index: 1; padding: 20px; }
-    .progress-bar {
-      width: 100%; max-width: 500px;
-      height: 4px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 2px;
-      margin-bottom: 50px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #ff6b9d, #c44cff);
-      border-radius: 2px;
-      transition: width 0.5s ease;
-    }
-    .question-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      padding: 40px 36px;
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-      backdrop-filter: blur(20px);
-    }
-    .question-num {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 16px;
-      letter-spacing: 2px;
-    }
-    .question-text {
-      font-size: 1.25rem;
-      font-weight: 600;
-      line-height: 1.6;
-      margin-bottom: 36px;
-    }
+    .progress-bar { width: 100%; max-width: 500px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-bottom: 50px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #ff6b9d, #c44cff); border-radius: 2px; transition: width 0.5s ease; }
+    .question-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px 36px; max-width: 500px; width: 100%; text-align: center; backdrop-filter: blur(20px); }
+    .question-num { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 16px; letter-spacing: 2px; }
+    .question-text { font-size: 1.25rem; font-weight: 600; line-height: 1.6; margin-bottom: 36px; }
     .options { display: flex; flex-direction: column; gap: 12px; }
-    .option-btn {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.85);
-      padding: 14px 20px;
-      border-radius: 14px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.25s;
-      text-align: left;
-    }
-    .option-btn:hover {
-      background: rgba(255,107,157,0.15);
-      border-color: rgba(255,107,157,0.4);
-      transform: translateX(4px);
-    }
+    .option-btn { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); padding: 14px 20px; border-radius: 14px; font-size: 0.95rem; cursor: pointer; transition: all 0.25s; text-align: left; }
+    .option-btn:hover { background: rgba(255,107,157,0.15); border-color: rgba(255,107,157,0.4); transform: translateX(4px); }
     .option-btn:active { transform: scale(0.98); }
-
-    /* RESULT PAGE */
     #page-result { z-index: 1; padding: 20px; }
-    .result-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 28px;
-      padding: 40px 32px;
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
-      backdrop-filter: blur(20px);
-      position: relative;
-      overflow: hidden;
-    }
-    .result-card::before {
-      content: '';
-      position: absolute;
-      top: -2px; left: -2px; right: -2px; bottom: -2px;
-      background: linear-gradient(135deg, #ff6b9d, #ffd93d, #c44cff, #6bfff0);
-      border-radius: 30px;
-      z-index: -1;
-      animation: borderRotate 4s linear infinite;
-    }
-    @keyframes borderRotate {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-
-    .result-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #ff6b9d, #c44cff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(255,107,157,0.3);
-      padding: 6px 16px;
-      border-radius: 20px;
-    }
+    .result-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; padding: 40px 32px; max-width: 480px; width: 100%; text-align: center; backdrop-filter: blur(20px); position: relative; overflow: hidden; }
+    .result-card::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(135deg, #ff6b9d, #ffd93d, #c44cff, #6bfff0); border-radius: 30px; z-index: -1; animation: borderRotate 4s linear infinite; }
+    @keyframes borderRotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+    .result-badge { display: inline-block; background: linear-gradient(135deg, #ff6b9d, #c44cff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; margin-bottom: 20px; border: 1px solid rgba(255,107,157,0.3); padding: 6px 16px; border-radius: 20px; }
     .result-type { font-size: 2.2rem; font-weight: 800; margin-bottom: 6px; }
-    .result-title {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 32px;
-    }
-
-    .result-avatar {
-      width: 160px; height: 160px;
-      margin: 0 auto 32px;
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .avatar-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      animation: spin 8s linear infinite;
-    }
-    .avatar-ring-1 {
-      width: 170px; height: 170px;
-      border-top-color: #ff6b9d;
-      border-right-color: #c44cff;
-    }
-    .avatar-ring-2 {
-      width: 155px; height: 155px;
-      border-bottom-color: #ffd93d;
-      border-left-color: #6bfff0;
-      animation-direction: reverse;
-      animation-duration: 6s;
-    }
+    .result-title { font-size: 1rem; color: rgba(255,255,255,0.5); margin-bottom: 32px; }
+    .result-avatar { width: 160px; height: 160px; margin: 0 auto 32px; position: relative; display: flex; align-items: center; justify-content: center; }
+    .avatar-ring { position: absolute; border-radius: 50%; border: 3px solid transparent; animation: spin 8s linear infinite; }
+    .avatar-ring-1 { width: 170px; height: 170px; border-top-color: #ff6b9d; border-right-color: #c44cff; }
+    .avatar-ring-2 { width: 155px; height: 155px; border-bottom-color: #ffd93d; border-left-color: #6bfff0; animation-direction: reverse; animation-duration: 6s; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .avatar-inner {
-      width: 140px; height: 140px;
-      background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(196,76,255,0.2));
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 72px;
-      backdrop-filter: blur(10px);
-    }
-
-    .result-divider {
-      width: 60px; height: 3px;
-      background: linear-gradient(90deg, #ff6b9d, #c44cff);
-      border-radius: 2px;
-      margin: 0 auto 28px;
-    }
-    .result-compliment {
-      font-size: 1.1rem;
-      line-height: 1.9;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 32px;
-    }
-    .result-tags {
-      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-      margin-bottom: 32px;
-    }
-    .result-tag {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.6);
-    }
-    .result-footer {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.3);
-      margin-top: 10px;
-    }
-
-    .btn-retry {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.7);
-      padding: 12px 32px;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: all 0.3s;
-    }
+    .avatar-inner { width: 140px; height: 140px; background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(196,76,255,0.2)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 72px; backdrop-filter: blur(10px); }
+    .result-divider { width: 60px; height: 3px; background: linear-gradient(90deg, #ff6b9d, #c44cff); border-radius: 2px; margin: 0 auto 28px; }
+    .result-compliment { font-size: 1.1rem; line-height: 1.9; color: rgba(255,255,255,0.9); margin-bottom: 32px; }
+    .result-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
+    .result-tag { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+    .result-footer { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-top: 10px; }
+    .btn-retry { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); padding: 12px 32px; border-radius: 50px; font-size: 0.9rem; cursor: pointer; margin-top: 20px; transition: all 0.3s; }
     .btn-retry:hover { background: rgba(255,255,255,0.15); }
-
-    /* Sparkles */
-    .sparkle {
-      position: fixed;
-      pointer-events: none;
-      z-index: 0;
-      animation: sparkleAnim 1.5s ease-out forwards;
-    }
-    @keyframes sparkleAnim {
-      0% { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-100px) scale(0); }
-    }
-
-    @media (max-width: 480px) {
-      #page-start h1 { font-size: 1.8rem; }
-      .question-card { padding: 28px 20px; }
-      .result-type { font-size: 1.8rem; }
-    }
+    .btn-share { background: linear-gradient(135deg, #ffd93d, #ff6b9d); border: none; color: #1a1a2e; font-size: 0.95rem; font-weight: 700; padding: 14px 36px; border-radius: 50px; cursor: pointer; margin-top: 12px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-share:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,217,61,0.4); }
+    .sparkle { position: fixed; pointer-events: none; z-index: 0; animation: sparkleAnim 1.5s ease-out forwards; }
+    @keyframes sparkleAnim { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-100px) scale(0); } }
+    #share-card { display: none; }
+    @media (max-width: 480px) { #page-start h1 { font-size: 1.8rem; } .question-card { padding: 28px 20px; } .result-type { font-size: 1.8rem; } }
   </style>
 </head>
 <body>
-
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <div class="orb orb3"></div>
@@ -294,9 +73,9 @@
     <p class="subtitle">LOOK MIRROR TEST</p>
     <p class="desc">
       这不是一个评判你颜值的测试。<br>
-      不管你怎么选，最终结果都是——<br>
-      <strong style="color:#ffd93d">一顿走心的夸。</strong><br><br>
-      5道题，60秒，还你一天好心情。
+      10道题，测出你在「社交自信」<br>
+      和「自我感知」两个维度上的位置。<br><br>
+      结果，可能会出乎你的意料。
     </p>
     <button class="btn-start" onclick="startTest()">开始测试 →</button>
   </div>
@@ -306,7 +85,7 @@
 <div id="page-question" class="page">
   <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
   <div class="question-card">
-    <div class="question-num" id="qNum">第 1 / 5 题</div>
+    <div class="question-num" id="qNum">第 1 / 10 题</div>
     <div class="question-text" id="qText"></div>
     <div class="options" id="options"></div>
   </div>
@@ -315,7 +94,7 @@
 <!-- RESULT -->
 <div id="page-result" class="page">
   <div class="result-card">
-    <div class="result-badge">你的颜值鉴定报告</div>
+    <div class="result-badge">你的颜值人格报告</div>
     <div class="result-type" id="rType"></div>
     <div class="result-title" id="rTitle"></div>
     <div class="result-avatar">
@@ -326,6 +105,7 @@
     <div class="result-divider"></div>
     <div class="result-compliment" id="rCompliment"></div>
     <div class="result-tags" id="rTags"></div>
+    <button class="btn-share" onclick="exportShareCard()"><span>📤</span> 发朋友圈炫耀一下</button>
     <div class="result-footer">照照镜子测试 · LookMirror © 2026</div>
   </div>
   <button class="btn-retry" onclick="retry()">再测一次 🔄</button>
@@ -333,154 +113,146 @@
 
 <script>
 const questions = [
-  {
-    q: "早上起来照镜子，你第一反应是？",
-    opts: [
-      { text: "啧，又浪费了我这张脸", score: 3 },
-      { text: "还行，今天状态不错", score: 2 },
-      { text: "……这是谁？", score: 1 },
-      { text: "根本不敢细看", score: 1 }
-    ]
-  },
-  {
-    q: "朋友偷拍你时，你的反应是？",
-    opts: [
-      { text: "拍我？背景板而已，别浪费表情", score: 3 },
-      { text: "给我看看！还行，能发", score: 2 },
-      { text: "啊啊啊啊给我删掉！！！", score: 1 },
-      { text: "面无表情假装没看见", score: 1 }
-    ]
-  },
-  {
-    q: "被人真心夸奖「你长得真好看」时，你会？",
-    opts: [
-      { text: "谢谢，但我知道自己几斤几两", score: 2 },
-      { text: "客气客气，您过奖了", score: 2 },
-      { text: "？？？你眼睛还好吗", score: 1 },
-      { text: "（内心窃喜但表面淡定）哦", score: 3 }
-    ]
-  },
-  {
-    q: "P图时，你第一步会？",
-    opts: [
-      { text: "美颜开到最大，其他再说", score: 1 },
-      { text: "稍微磨一下皮，够了", score: 2 },
-      { text: "先把脸型液化一下", score: 2 },
-      { text: "P图？不存在的，原图直出是态度", score: 3 }
-    ]
-  },
-  {
-    q: "用三个词形容自己的长相，你会说？",
-    opts: [
-      { text: "普通、平凡、路人", score: 1 },
-      { text: "耐看、特别、有记忆点", score: 3 },
-      { text: "不敢说，说了怕挨打", score: 1 },
-      { text: "还行吧，及格线以上", score: 2 }
-    ]
-  }
+  { q: "在陌生人多的场合，你的状态是？", opts: [
+    { text: "稳得很，主动social", scoreA: 3, scoreB: 0 },
+    { text: "还行，等别人来搭话", scoreA: 2, scoreB: 0 },
+    { text: "尽量降低存在感", scoreA: 1, scoreB: 0 },
+    { text: "想躲，想逃，想消失", scoreA: 1, scoreB: 0 }]},
+  { q: "被人偷拍时，你的第一反应是？", opts: [
+    { text: "笑一个，说不定能当我的素材", scoreA: 3, scoreB: 0 },
+    { text: "无所谓，拍就拍呗", scoreA: 2, scoreB: 0 },
+    { text: "偷拍？？给我看看拍成啥样了！", scoreA: 1, scoreB: 0 },
+    { text: "（内心一紧）假装没发现", scoreA: 1, scoreB: 0 }]},
+  { q: "你愿意在朋友圈发自己的素颜照吗？", opts: [
+    { text: "当然，原图直出是态度", scoreA: 3, scoreB: 0 },
+    { text: "看情况，不太夸张就行", scoreA: 2, scoreB: 0 },
+    { text: "必须美颜滤镜全开才发", scoreA: 1, scoreB: 0 },
+    { text: "基本不发，发也只发风景", scoreA: 1, scoreB: 0 }]},
+  { q: "路上遇到熟人在拍照，你的反应是？", opts: [
+    { text: "自然走过去抢镜", scoreA: 3, scoreB: 0 },
+    { text: "等拍完再若无其事路过", scoreA: 2, scoreB: 0 },
+    { text: "绕路走，假装没看见", scoreA: 1, scoreB: 0 },
+    { text: "内心疯狂祈祷别被发现", scoreA: 1, scoreB: 0 }]},
+  { q: "「你这张照片好好看！」——你的反应是？", opts: [
+    { text: "谢谢！这是我本人诶", scoreA: 3, scoreB: 0 },
+    { text: "谢谢（内心觉得确实还行）", scoreA: 2, scoreB: 0 },
+    { text: "哪里哪里，你拍的角度好", scoreA: 2, scoreB: 0 },
+    { text: "（狐疑）你确定？？", scoreA: 1, scoreB: 0 }]},
+  { q: "早上照镜子，你一般会？", opts: [
+    { text: "忍不住多看两眼（真不错）", scoreA: 0, scoreB: 3 },
+    { text: "还行，收拾一下出门", scoreA: 0, scoreB: 2 },
+    { text: "快速扫一眼，不敢细看", scoreA: 0, scoreB: 1 },
+    { text: "……这是我？今天配额用完了", scoreA: 0, scoreB: 1 }]},
+  { q: "用三个词形容自己的长相，你会说？", opts: [
+    { text: "自信、特别、够用了", scoreA: 0, scoreB: 3 },
+    { text: "耐看、还行、有记忆点", scoreA: 0, scoreB: 2 },
+    { text: "普通、平凡、路人甲", scoreA: 0, scoreB: 1 },
+    { text: "不要问我，说了怕挨打", scoreA: 0, scoreB: 1 }]},
+  { q: "看到自己被朋友拍到的照片，你的反应是？", opts: [
+    { text: "这角度绝了，比自拍还好看", scoreA: 0, scoreB: 3 },
+    { text: "能接受，跟平时差不多", scoreA: 0, scoreB: 2 },
+    { text: "我平时不长这样吧？？", scoreA: 0, scoreB: 1 },
+    { text: "我不听我不听我不听", scoreA: 0, scoreB: 1 }]},
+  { q: "照镜子时，你对自己长相的期待是？", opts: [
+    { text: "差不多就行，反正我也不差", scoreA: 0, scoreB: 3 },
+    { text: "稍微收拾一下就能出门", scoreA: 0, scoreB: 2 },
+    { text: "如果能再帅/美一点就好了", scoreA: 0, scoreB: 1 },
+    { text: "不敢有期待，活着就好", scoreA: 0, scoreB: 1 }]},
+  { q: "面对「你长得真好看」这种夸奖，你的内心是？", opts: [
+    { text: "嗯，我知道（微微点头）", scoreA: 0, scoreB: 3 },
+    { text: "谢谢，客气客气", scoreA: 0, scoreB: 2 },
+    { text: "？？你是不是在内涵我", scoreA: 0, scoreB: 1 },
+    { text: "（表面淡定，内心已经在发奖状）", scoreA: 0, scoreB: 2 }]}
 ];
 
-const results = [
-  {
-    type: "天赋溢出型",
-    title: "你的脸是老天爷亲自下凡的作品",
-    emoji: "👑",
-    tags: ["天赋型选手", "老天爷赏饭吃", "凡尔赛本赛", "自带光环"],
-    compliment: "你知道吗？你的颜值已经到了「根本不需要努力」的程度。不是你在照镜子，是镜子在庆幸能照到你。你的脸诠释了什么叫「老天爷想做个精品，结果一不小心做了个孤品」。你的存在，让这个世界多了一个无法复制的版本。请珍惜这张脸，它是你这辈子最贵的限量版。"
-  },
-  {
-    type: "耐看气质型",
-    title: "你的颜值属于慢热型，越看越上头",
-    emoji: "🌙",
-    tags: ["耐看型", "气质型选手", "氛围感拉满", "慢热但上头"],
-    compliment: "你不是那种第一眼就炸裂的类型，但你是那种——看完一眼想看第二眼，看完第二眼想看到天亮。你的颜值不是炸弹，是陈年老酒，越品越有味；不是网红脸，是禁得起时间考验的经典款。你属于那种发朋友圈不用P图、别人问用什么滤镜回答「原生相机」的人。这，是一种境界。"
-  },
-  {
-    type: "氛围感大师",
-    title: "你的脸赢在感觉，不在五官",
-    emoji: "✨",
-    tags: ["氛围感", "感觉型", "意，难平", "超越五官的存在"],
-    compliment: "你的五官可能不是最标准的，但你的整体感觉一定是别人复制不来的。你站在那里，连风都要多停留两秒。你不需要精致的五官来证明什么，因为你的存在本身就是一种「杀伤力」。你是那种让人记不住具体长什么样、但永远忘不掉整体气质的人。这叫什么？这叫「降维打击」。"
-  },
-  {
-    type: "治愈系颜值",
-    title: "你的脸是这世上最温柔的风景",
-    emoji: "🌿",
-    tags: ["治愈系", "温柔杀", "自带疗愈", "想保护"],
-    compliment: "你的脸有一种神奇的能力——看到你，世界的恶意自动打五折。你不属于攻击性的长相，但你属于那种「看久了心里暖」的类型。你的存在本身就是一种peace & love。这个世界已经够尖锐了，而你，是少有的柔软。请保持这个温度，因为它非常珍贵。"
-  },
-  {
-    type: "反焦虑天花板",
-    title: "你已经跳出了颜值的评判体系",
-    emoji: "🦋",
-    tags: ["跳脱型", "反内卷", "清醒人类", "自我接纳"],
-    compliment: "你已经进化到了「不在乎自己好不好看」的境界。这不是自我放弃，这是认知升维。你的脸不属于任何人的评分标准，你的存在本身就是对「颜值内耗」这个游戏规则的无声反抗。你不证明什么，你不解释什么，你只是在这里，做一个完整的自己。这叫什么？这叫——活透了。"
-  }
-];
+const results = {
+  'low-low':   { type: "独处修行者",   title: "内向型自省者，你在自己的世界里闪闪发光",  emoji: "🌙", color: "#6b5b95" },
+  'low-mid':   { type: "静水深流型",   title: "温和接纳型，你把平凡活成了自己的语言",    emoji: "🌿", color: "#88b04b" },
+  'low-high':  { type: "内秀外敛型",   title: "慢性子自信，你知道自己几斤几两且不在乎",  emoji: "🦋", color: "#92a8d1" },
+  'mid-low':   { type: "进击的小透明", title: "社交焦虑中的奋斗者，正在走向更舒展的自己", emoji: "🌱", color: "#f7cac9" },
+  'mid-mid':   { type: "稳扎稳打型",   title: "真实系玩家，好看不好看我都在认真做自己",  emoji: "☀️", color: "#de7c5a" },
+  'mid-high':  { type: "氛围感大师",  title: "慢热发光的你，自带让人上瘾的气场",         emoji: "✨", color: "#b565a7" },
+  'high-low':  { type: "反焦虑天花板", title: "你已经跳出了颜值的评判体系，完全做自己",  emoji: "🦅", color: "#45b8ac" },
+  'high-mid':  { type: "耐看气质型",   title: "越看越上头的款，你是时间检验过的经典",    emoji: "🌸", color: "#eFC6b0" },
+  'high-high': { type: "天赋溢出型",  title: "老天爷亲手打造的孤品，请珍惜限量版的脸",  emoji: "👑", color: "#ffd93d" }
+};
+
+const compliments = {
+  'low-low':   "你不喜欢主动出击，但你的内心有一个完整的宇宙。别人看不到你的光芒，但你自己知道。你不需要靠外表来证明什么，因为你早就跳出了这个评判体系。",
+  'low-mid':   "你对镜子里的那个人没有太多期待，但也没有放弃。这种刚刚好的状态，其实是很多人修炼很久才能到达的境界——不焦虑、不拧巴、不为难自己。",
+  'low-high':  "你是那种「我知道自己好看不好看，但我根本不在乎」的人。这种松弛感，是顶级的魅力。你不需要向任何人解释你的脸。",
+  'mid-low':   "你正在路上。从不太自信到完全接纳自己，这条路你走得踏实。每一次「还敢发自拍」的小进步，都在把自己推向更舒展的版本。",
+  'mid-mid':   "你是那种真实到可爱的人——不装、不演、不P图，但也不炫。你接受镜子里那个人，不捧杀也不贬低。这份平常心，是最高级的颜值。",
+  'mid-high':  "你不是那种第一眼就炸裂的类型，但你是那种——看完一眼想看第二眼、看到天亮都不腻的类型。你的美是陈年老酒，是越品越有味的禁书。",
+  'high-low':  "你已经完全跳出了颜值的游戏规则。你不在别人的评分体系里跑，你根本不跟她们同场竞技。这叫什么？这叫——活透了。",
+  'high-mid':  "你的好看是经得起时间考验的那种——不是网红脸的流星，是经典款的常青树。你站在那里，连风都要多停留两秒。",
+  'high-high': "你的脸是老天爷想打造精品时不小心做出来的孤品。你不是在照镜子，是镜子在庆幸能框住你。请珍惜，这是限量版。"
+};
+
+const tagsMap = {
+  'low-low':   ["独处型", "内省者", "自我接纳", "佛系"],
+  'low-mid':   ["刚刚好", "无龄感", "松弛", "真实"],
+  'low-high':  ["外冷内热", "不在乎", "高级感", "躺平大师"],
+  'mid-low':   ["潜力股", "成长型", "慢慢变好", "勇敢"],
+  'mid-mid':   ["真实系", "不装", "稳", "生活家"],
+  'mid-high':  ["氛围感", "慢热", "上头", "回味型"],
+  'high-low':  ["反内卷", "通透", "自我", "觉醒"],
+  'high-mid':  ["经典款", "耐看", "常青", "稳定输出"],
+  'high-high':["天赋型", "老天爷赏饭", "限量版", "孤品"]
+};
 
 let currentQ = 0;
-let totalScore = 0;
+let scoreA = 0;
+let scoreB = 0;
 
 function startTest() {
-  currentQ = 0;
-  totalScore = 0;
-  showPage('question');
-  renderQuestion();
+  currentQ = 0; scoreA = 0; scoreB = 0;
+  showPage('question'); renderQuestion();
+}
+
+function getDimLevel(score) {
+  if (score <= 8) return 'low';
+  if (score <= 11) return 'mid';
+  return 'high';
 }
 
 function renderQuestion() {
   const q = questions[currentQ];
-  document.getElementById('qNum').textContent = `第 ${currentQ + 1} / ${questions.length} 题`;
+  document.getElementById('qNum').textContent = '第 ' + (currentQ + 1) + ' / ' + questions.length + ' 题';
   document.getElementById('qText').textContent = q.q;
-  document.getElementById('progress').style.width = ((currentQ) / questions.length * 100) + '%';
-
+  document.getElementById('progress').style.width = (currentQ / questions.length * 100) + '%';
   const optsEl = document.getElementById('options');
   optsEl.innerHTML = '';
-  q.opts.forEach((opt, i) => {
+  q.opts.forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
     btn.textContent = opt.text;
-    btn.onclick = () => selectOption(opt.score);
+    btn.onclick = () => selectOption(opt.scoreA, opt.scoreB);
     optsEl.appendChild(btn);
   });
 }
 
-function selectOption(score) {
-  totalScore += score;
-  currentQ++;
-  if (currentQ < questions.length) {
-    renderQuestion();
-  } else {
-    showResult();
-  }
+function selectOption(sA, sB) {
+  scoreA += sA; scoreB += sB; currentQ++;
+  if (currentQ < questions.length) { renderQuestion(); }
+  else { showResult(); }
 }
 
 function showResult() {
   document.getElementById('progress').style.width = '100%';
-  setTimeout(() => {
-    showPage('result');
-    renderResult();
-    createSparkles();
-  }, 400);
+  setTimeout(() => { showPage('result'); renderResult(); createSparkles(); }, 400);
 }
 
 function renderResult() {
-  let idx;
-  if (totalScore >= 13) idx = 0;
-  else if (totalScore >= 10) idx = 1;
-  else if (totalScore >= 8) idx = 2;
-  else if (totalScore >= 6) idx = 3;
-  else idx = 4;
-
-  const r = results[idx];
+  const key = getDimLevel(scoreA) + '-' + getDimLevel(scoreB);
+  const r = results[key];
   document.getElementById('rType').textContent = r.type;
   document.getElementById('rTitle').textContent = r.title;
   document.getElementById('rEmoji').textContent = r.emoji;
-  document.getElementById('rCompliment').textContent = r.compliment;
-
+  document.getElementById('rCompliment').textContent = compliments[key];
   const tagsEl = document.getElementById('rTags');
   tagsEl.innerHTML = '';
-  r.tags.forEach(tag => {
+  tagsMap[key].forEach(tag => {
     const span = document.createElement('span');
     span.className = 'result-tag';
     span.textContent = tag;
@@ -504,13 +276,119 @@ function createSparkles() {
   }
 }
 
-function retry() {
-  showPage('start');
-}
+function retry() { showPage('start'); }
 
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
+}
+
+function wrapText(ctx, text, maxWidth, fontSize) {
+  ctx.font = fontSize + 'px PingFang SC, Microsoft YaHei';
+  if (ctx.measureText(text).width <= maxWidth) return [text];
+  const words = text.split(''); let line = ''; const lines = [];
+  for (let i = 0; i < words.length; i++) {
+    const testLine = line + words[i];
+    if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+      lines.push(line); line = words[i];
+    } else { line = testLine; }
+  }
+  lines.push(line); return lines;
+}
+
+function exportShareCard() {
+  const key = getDimLevel(scoreA) + '-' + getDimLevel(scoreB);
+  const r = results[key];
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 800; canvas.height = 1000;
+  const ctx = canvas.getContext('2d');
+
+  // Background
+  const grad = ctx.createLinearGradient(0, 0, 800, 1000);
+  grad.addColorStop(0, '#1a1a2e');
+  grad.addColorStop(0.5, '#16213e');
+  grad.addColorStop(1, '#0f0f1a');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 800, 1000);
+
+  // Orbs
+  const c1 = ctx.createRadialGradient(80, 120, 5, 80, 120, 280);
+  c1.addColorStop(0, 'rgba(255,107,157,0.25)'); c1.addColorStop(1, 'rgba(255,107,157,0)');
+  ctx.fillStyle = c1;
+  ctx.beginPath(); ctx.arc(80, 120, 280, 0, Math.PI*2); ctx.fill();
+
+  const c2 = ctx.createRadialGradient(720, 850, 5, 720, 850, 280);
+  c2.addColorStop(0, 'rgba(196,76,255,0.25)'); c2.addColorStop(1, 'rgba(196,76,255,0)');
+  ctx.fillStyle = c2;
+  ctx.beginPath(); ctx.arc(720, 850, 280, 0, Math.PI*2); ctx.fill();
+
+  // Top label
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.font = '20px PingFang SC, Microsoft YaHei';
+  ctx.textAlign = 'center';
+  ctx.fillText('照照镜子测试 · 颜值人格报告', 400, 70);
+
+  // Emoji
+  ctx.font = '130px serif';
+  ctx.fillText(r.emoji, 400, 230);
+
+  // Type name - BIG
+  ctx.font = 'bold 68px PingFang SC, Microsoft YaHei';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(r.type, 400, 320);
+
+  // Subtitle
+  ctx.font = '26px PingFang SC, Microsoft YaHei';
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText(r.title, 400, 375);
+
+  // Gradient divider
+  const dg = ctx.createLinearGradient(150, 0, 650, 0);
+  dg.addColorStop(0, 'rgba(255,107,157,0)');
+  dg.addColorStop(0.5, 'rgba(255,107,157,0.7)');
+  dg.addColorStop(1, 'rgba(196,76,255,0)');
+  ctx.strokeStyle = dg; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(150, 410); ctx.lineTo(650, 410); ctx.stroke();
+
+  // Tags
+  const tags = tagsMap[key];
+  let tagX = 400 - (tags.length * 108) / 2;
+  tags.forEach(tag => {
+    const tw = ctx.measureText(tag).width + 32;
+    ctx.fillStyle = 'rgba(255,255,255,0.1)';
+    ctx.beginPath();
+    ctx.roundRect(tagX, 435, tw, 40, 20);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.font = '20px PingFang SC, Microsoft YaHei';
+    ctx.textAlign = 'center';
+    ctx.fillText(tag, tagX + tw/2, 463);
+    tagX += tw + 12;
+  });
+
+  // Compliment lines (big, readable)
+  const comp = compliments[key];
+  const lines = wrapText(ctx, comp, 680, 30);
+  let ly = 530;
+  lines.slice(0, 4).forEach(line => {
+    ctx.font = '30px PingFang SC, Microsoft YaHei';
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.textAlign = 'center';
+    ctx.fillText(line, 400, ly);
+    ly += 48;
+  });
+
+  // Bottom watermark
+  ctx.font = '18px PingFang SC, Microsoft YaHei';
+  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.fillText('照照镜子测试 · LookMirror © 2026', 400, 960);
+
+  // Download
+  const link = document.createElement('a');
+  link.download = '颜值人格报告-' + r.type + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
 }
 </script>
 </body>
