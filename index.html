@@ -39,12 +39,12 @@
     .result-badge { display: inline-block; background: linear-gradient(135deg, #ff6b9d, #c44cff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; margin-bottom: 20px; border: 1px solid rgba(255,107,157,0.3); padding: 6px 16px; border-radius: 20px; }
     .result-type { font-size: 2.2rem; font-weight: 800; margin-bottom: 6px; }
     .result-title { font-size: 1rem; color: rgba(255,255,255,0.5); margin-bottom: 32px; }
-    .result-avatar { width: 160px; height: 160px; margin: 0 auto 32px; position: relative; display: flex; align-items: center; justify-content: center; }
-    .avatar-ring { position: absolute; border-radius: 50%; border: 3px solid transparent; animation: spin 8s linear infinite; }
+    .result-portrait { width: 160px; height: 160px; margin: 0 auto 32px; position: relative; display: flex; align-items: center; justify-content: center; }
+    .result-portrait img { width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2); box-shadow: 0 0 30px rgba(196,76,255,0.3); }
+    .avatar-ring { position: absolute; border-radius: 50%; border: 3px solid transparent; animation: spin 8s linear infinite; pointer-events: none; }
     .avatar-ring-1 { width: 170px; height: 170px; border-top-color: #ff6b9d; border-right-color: #c44cff; }
     .avatar-ring-2 { width: 155px; height: 155px; border-bottom-color: #ffd93d; border-left-color: #6bfff0; animation-direction: reverse; animation-duration: 6s; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .avatar-inner { width: 140px; height: 140px; background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(196,76,255,0.2)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 72px; backdrop-filter: blur(10px); }
     .result-divider { width: 60px; height: 3px; background: linear-gradient(90deg, #ff6b9d, #c44cff); border-radius: 2px; margin: 0 auto 28px; }
     .result-compliment { font-size: 1.1rem; line-height: 1.9; color: rgba(255,255,255,0.9); margin-bottom: 32px; }
     .result-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 32px; }
@@ -96,10 +96,10 @@
     <div class="result-badge">你的颜值人格报告</div>
     <div class="result-type" id="rType"></div>
     <div class="result-title" id="rTitle"></div>
-    <div class="result-avatar">
+    <div class="result-portrait">
       <div class="avatar-ring avatar-ring-1"></div>
       <div class="avatar-ring avatar-ring-2"></div>
-      <div class="avatar-inner" id="rEmoji"></div>
+      <img id="rPortrait" src="" alt="portrait">
     </div>
     <div class="result-divider"></div>
     <div class="result-compliment" id="rCompliment"></div>
@@ -164,19 +164,17 @@ const questions = [
     { text: "（表面淡定，内心已经在发奖状）", scoreA: 0, scoreB: 2 }]}
 ];
 
-// dimA=low: 社交内敛
+// 图片URL：维基百科/大都会博物馆公开艺术品，CORS全支持
 const results = {
-  'low-low':   { type: "独处修行者", title: "内向型自省者，你在自己的世界里闪闪发光", emoji: "🏔️" },
-  'low-mid':   { type: "静水深潭型", title: "温和接纳型，把平凡活成了深沉的力量", emoji: "🌊" },
-  'low-high':  { type: "治愈温暖型", title: "慢性子自信，不张扬却让人忍不住靠近", emoji: "🌿" },
-  // dimA=mid: 社交平常
-  'mid-low':   { type: "进击小透明", title: "社交焦虑中的奋斗者，正在走向更舒展的自己", emoji: "🌱" },
-  'mid-mid':   { type: "靠谱本谱型", title: "真实系玩家，好看不好看我都在认真做自己", emoji: "🪷" },
-  'mid-high':  { type: "氛围感大师", title: "慢热发光的你，自带让人上瘾的气场", emoji: "✨" },
-  // dimA=high: 社交自信
-  'high-low':  { type: "反焦虑天花板", title: "你已经跳出了颜值的评判体系，完全做自己", emoji: "🦋" },
-  'high-mid':  { type: "耐看雅典型", title: "越看越上头的款，你是时间检验过的经典", emoji: "🏛️" },
-  'high-high': { type: "天赋弥尔顿型", title: "老天爷亲手打造的孤品，请珍惜限量版的脸", emoji: "👑" }
+  'low-low':   { type: "独处修行者", title: "内向型自省者，你在自己的世界里闪闪发光", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Le_Penseur_by_Rodin_%28Kunsthalle_Bielefeld%29_2014-04-10.JPG/330px-Le_Penseur_by_Rodin_%28Kunsthalle_Bielefeld%29_2014-04-10.JPG" },
+  'low-mid':   { type: "静水深潭型", title: "温和接纳型，把平凡活成了深沉的力量", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/330px-1665_Girl_with_a_Pearl_Earring.jpg" },
+  'low-high':  { type: "治愈温暖型", title: "慢性子自信，不张扬却让人忍不住靠近", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/330px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg" },
+  'mid-low':   { type: "进击小透明", title: "社交焦虑中的奋斗者，正在走向更舒展的自己", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/330px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg" },
+  'mid-mid':   { type: "靠谱本谱型", title: "真实系玩家，好看不好看我都在认真做自己", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Jean-Baptiste-Camille_Corot_053.jpg/400px-Jean-Baptiste-Camille_Corot_053.jpg" },
+  'mid-high':  { type: "氛围感大师", title: "慢热发光的你，自带让人上瘾的气场", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Lady_with_an_Ermine_-_Leonardo_da_Vinci_%28adjusted_levels%29.jpg/330px-Lady_with_an_Ermine_-_Leonardo_da_Vinci_%28adjusted_levels%29.jpg" },
+  'high-low':  { type: "反焦虑天花板", title: "你已经跳出了颜值的评判体系，完全做自己", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/La_Libert%C3%A9_guidant_le_peuple_-_Eug%C3%A8ne_Delacroix_-_Mus%C3%A9e_du_Louvre_Peintures_RF_129_-_apr%C3%A8s_restauration_2024.jpg/330px-La_Libert%C3%A9_guidant_le_peuple_-_Eug%C3%A8ne_Delacroix_-_Mus%C3%A9e_du_Louvre_Peintures_RF_129_-_apr%C3%A8s_restauration_2024.jpg" },
+  'high-mid':  { type: "耐看雅典型", title: "越看越上头的款，你是时间检验过的经典", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Mattei_Athena_Louvre_Ma530_n2.jpg/330px-Mattei_Athena_Louvre_Ma530_n2.jpg" },
+  'high-high': { type: "天赋弥尔顿型", title: "老天爷亲手打造的孤品，请珍惜限量版的脸", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Apollo_del_Belvedere.jpg/330px-Apollo_del_Belvedere.jpg" }
 };
 
 const compliments = {
@@ -250,7 +248,7 @@ function renderResult() {
   const r = results[key];
   document.getElementById('rType').textContent = r.type;
   document.getElementById('rTitle').textContent = r.title;
-  document.getElementById('rEmoji').textContent = r.emoji;
+  document.getElementById('rPortrait').src = r.img;
   document.getElementById('rCompliment').textContent = compliments[key];
   const tagsEl = document.getElementById('rTags');
   tagsEl.innerHTML = '';
@@ -325,8 +323,7 @@ function exportShareCard() {
   ctx.fillStyle = c2;
   ctx.beginPath(); ctx.arc(740, 870, 260, 0, Math.PI*2); ctx.fill();
 
-  const PAD = 80; // side padding
-  const contentW = 800 - PAD * 2;
+  const PAD = 80;
 
   // Top label
   ctx.fillStyle = 'rgba(255,255,255,0.3)';
@@ -334,76 +331,104 @@ function exportShareCard() {
   ctx.textAlign = 'center';
   ctx.fillText('照照镜子测试 · 颜值人格报告', 400, 80);
 
-  // Emoji figure (larger, more prominent)
-  ctx.font = '140px serif';
-  ctx.fillText(r.emoji, 400, 240);
-
-  // Type name - big, bold
-  ctx.font = 'bold 62px PingFang SC, Microsoft YaHei';
-  ctx.fillStyle = '#ffffff';
-  ctx.textAlign = 'center';
-  ctx.fillText(r.type, 400, 330);
-
-  // Subtitle
-  ctx.font = '24px PingFang SC, Microsoft YaHei';
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.fillText(r.title, 400, 382);
-
-  // Gradient divider
-  const dg = ctx.createLinearGradient(PAD + 40, 0, 800 - PAD - 40, 0);
-  dg.addColorStop(0, 'rgba(255,107,157,0)');
-  dg.addColorStop(0.5, 'rgba(255,107,157,0.6)');
-  dg.addColorStop(1, 'rgba(196,76,255,0)');
-  ctx.strokeStyle = dg; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.moveTo(PAD + 40, 415); ctx.lineTo(800 - PAD - 40, 415); ctx.stroke();
-
-  // Tags
-  const tags = tagsMap[key];
-  const tagFontSize = 19;
-  ctx.font = tagFontSize + 'px PingFang SC, Microsoft YaHei';
-  let totalTagW = 0;
-  const tagHeights = [];
-  tags.forEach(tag => {
-    const tw = ctx.measureText(tag).width + 36;
-    totalTagW += tw + 14;
-  });
-  let tagX = 400 - totalTagW / 2;
-  tags.forEach(tag => {
-    const tw = ctx.measureText(tag).width + 36;
-    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  // Portrait image (circle crop)
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = function() {
+    // Draw circular portrait
+    const px = 400, py = 220, pr = 100;
+    ctx.save();
     ctx.beginPath();
-    ctx.roundRect(tagX, 435, tw, 38, 19);
-    ctx.fill();
-    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.arc(px, py, pr, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+
+    // Shadow
+    ctx.shadowColor = 'rgba(196,76,255,0.5)';
+    ctx.shadowBlur = 30;
+    ctx.drawImage(img, px - pr, py - pr, pr * 2, pr * 2);
+    ctx.restore();
+
+    // Circle border
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(px, py, pr, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Type name
+    ctx.font = 'bold 58px PingFang SC, Microsoft YaHei';
+    ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
-    ctx.fillText(tag, tagX + tw / 2, 462);
-    tagX += tw + 14;
-  });
+    ctx.fillText(r.type, 400, 365);
 
-  // Compliment text - SMALLER font, more padding
-  const comp = compliments[key];
-  const compFontSize = 25;
-  const compLines = wrapText(ctx, comp, contentW - 20, compFontSize);
-  let ly = 515;
-  const lineHeight = 42;
-  compLines.slice(0, 5).forEach(line => {
-    ctx.font = compFontSize + 'px PingFang SC, Microsoft YaHei';
-    ctx.fillStyle = 'rgba(255,255,255,0.78)';
+    // Subtitle
+    ctx.font = '23px PingFang SC, Microsoft YaHei';
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillText(r.title, 400, 415);
+
+    // Gradient divider
+    const dg = ctx.createLinearGradient(PAD + 40, 0, 800 - PAD - 40, 0);
+    dg.addColorStop(0, 'rgba(255,107,157,0)');
+    dg.addColorStop(0.5, 'rgba(255,    dg.addColorStop(0, 'rgba(255,107,157,0)');
+    dg.addColorStop(0.5, 'rgba(255,107,157,0.6)');
+    dg.addColorStop(1, 'rgba(196,76,255,0)');
+    ctx.strokeStyle = dg; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(PAD + 40, 445); ctx.lineTo(800 - PAD - 40, 445); ctx.stroke();
+
+    // Tags
+    const tags = tagsMap[key];
+    const tagFontSize = 19;
+    ctx.font = tagFontSize + 'px PingFang SC, Microsoft YaHei';
+    let totalTagW = 0;
+    tags.forEach(tag => { totalTagW += ctx.measureText(tag).width + 36 + 14; });
+    let tagX = 400 - totalTagW / 2;
+    tags.forEach(tag => {
+      const tw = ctx.measureText(tag).width + 36;
+      ctx.fillStyle = 'rgba(255,255,255,0.08)';
+      ctx.beginPath();
+      ctx.roundRect(tagX, 465, tw, 38, 19);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      ctx.textAlign = 'center';
+      ctx.fillText(tag, tagX + tw / 2, 492);
+      tagX += tw + 14;
+    });
+
+    // Compliment text
+    const comp = compliments[key];
+    const compFontSize = 24;
+    const compLines = wrapText(ctx, comp, 640, compFontSize);
+    let ly = 545;
+    compLines.slice(0, 5).forEach(line => {
+      ctx.font = compFontSize + 'px PingFang SC, Microsoft YaHei';
+      ctx.fillStyle = 'rgba(255,255,255,0.78)';
+      ctx.textAlign = 'center';
+      ctx.fillText(line, 400, ly);
+      ly += 44;
+    });
+
+    // Bottom watermark
+    ctx.font = '17px PingFang SC, Microsoft YaHei';
+    ctx.fillStyle = 'rgba(255,255,255,0.18)';
+    ctx.fillText('照照镜子测试 · LookMirror © 2026', 400, 960);
+
+    // Download
+    const link = document.createElement('a');
+    link.download = '颜值人格报告-' + r.type + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+  img.onerror = function() {
+    // Fallback: draw placeholder if image fails to load
+    ctx.font = '100px serif';
+    ctx.fillText('🎭', 400, 240);
+    ctx.font = 'bold 58px PingFang SC, Microsoft YaHei';
+    ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
-    ctx.fillText(line, 400, ly);
-    ly += lineHeight;
-  });
-
-  // Bottom watermark
-  ctx.font = '17px PingFang SC, Microsoft YaHei';
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  ctx.fillText('照照镜子测试 · LookMirror © 2026', 400, 960);
-
-  // Download
-  const link = document.createElement('a');
-  link.download = '颜值人格报告-' + r.type + '.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
+    ctx.fillText(r.type, 400, 365);
+  };
+  img.src = r.img;
 }
 </script>
 </body>
