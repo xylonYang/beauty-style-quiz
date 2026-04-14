@@ -21,7 +21,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'cool',
     style: 'classical',
     paintingRef: '安格尔《大宫女》',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-ice-goddess-v2_a4a3f51e.png',
+    imageUrl: '/images/beauty/ice-goddess.png',
   },
   {
     id: 'golden-peony',
@@ -33,7 +33,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'warm',
     style: 'classical',
     paintingRef: '拉斐尔《椅中圣母》',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-golden-peony_b3f327e6.png',
+    imageUrl: '/images/beauty/golden-peony.png',
   },
   {
     id: 'still-waters',
@@ -45,7 +45,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'neutral',
     style: 'classical',
     paintingRef: '维米尔《戴珍珠耳环的少女》',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-still-waters_e21ac7cc.png',
+    imageUrl: '/images/beauty/still-waters.png',
   },
   {
     id: 'moonlight-poet',
@@ -57,7 +57,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'cool',
     style: 'romantic',
     paintingRef: '沃特豪斯《夏洛特女郎》',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-moonlight-poet_10cd4720.png',
+    imageUrl: '/images/beauty/moonlight-poet.png',
   },
   {
     id: 'warm-glow',
@@ -69,7 +69,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'warm',
     style: 'romantic',
     paintingRef: '雷诺阿《煎饼磨坊的舞会》',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-warm-glow_127d7c62.png',
+    imageUrl: '/images/beauty/warm-glow.png',
   },
   {
     id: 'free-bloom',
@@ -81,7 +81,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'neutral',
     style: 'romantic',
     paintingRef: '莫里索《摇篮》',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-free-bloom_019d177a.png',
+    imageUrl: '/images/beauty/free-bloom.png',
   },
   {
     id: 'dark-queen',
@@ -93,7 +93,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'cool',
     style: 'avantgarde',
     paintingRef: '克里姆特《朱迪斯》',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-dark-queen_c8bca0ab.png',
+    imageUrl: '/images/beauty/dark-queen.png',
   },
   {
     id: 'flame-rose',
@@ -105,7 +105,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'warm',
     style: 'avantgarde',
     paintingRef: '穆夏新艺术风格海报',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-flame-rose_c49c264b.png',
+    imageUrl: '/images/beauty/flame-rose.png',
   },
   {
     id: 'rebel-muse',
@@ -117,7 +117,7 @@ export const beautyTypes: BeautyType[] = [
     temperature: 'neutral',
     style: 'avantgarde',
     paintingRef: '弗里达·卡罗自画像',
-    imageUrl: 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-rebel-muse_90caa9e1.png',
+    imageUrl: '/images/beauty/rebel-muse.png',
   },
 ]
 

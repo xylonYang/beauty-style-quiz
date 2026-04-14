@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
-const HERO_IMAGE = 'https://grazia-prod.oss-ap-southeast-1.aliyuncs.com/resources/uid_100029099/beauty-hero_fb092abe.png'
+const HERO_IMAGE = '/images/beauty/beauty-hero.png'
 
 export default function Index() {
   const navigate = useNavigate()
