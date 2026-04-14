@@ -85,7 +85,7 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: 'Noto Serif SC', serif;
+    font-family: 'Source Han Serif SC', 'Noto Serif SC', 'STSong', 'SimSun', serif;
   }
 }
 
