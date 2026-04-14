@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 30% 97%;
+    --foreground: 30 10% 15%;
+
+    --card: 40 25% 95%;
+    --card-foreground: 30 10% 15%;
+
+    --popover: 40 30% 97%;
+    --popover-foreground: 30 10% 15%;
+
+    --primary: 38 60% 45%;
+    --primary-foreground: 40 30% 97%;
+
+    --secondary: 30 15% 88%;
+    --secondary-foreground: 30 10% 22%;
+
+    --muted: 30 12% 90%;
+    --muted-foreground: 30 10% 45%;
+
+    --accent: 38 40% 85%;
+    --accent-foreground: 30 10% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 35 20% 85%;
+    --input: 35 20% 85%;
+    --ring: 38 60% 45%;
+
+    --radius: 0.5rem;
+
+    --gold: 38 60% 45%;
+    --gold-light: 40 50% 70%;
+    --gold-dark: 35 65% 30%;
+    --ivory: 40 30% 97%;
+    --parchment: 38 35% 92%;
+    --ink: 30 10% 15%;
+    --ink-light: 30 10% 35%;
+
+    --gradient-gold: linear-gradient(135deg, hsl(38 60% 45%), hsl(40 50% 60%));
+    --gradient-parchment: linear-gradient(180deg, hsl(40 30% 97%), hsl(38 35% 92%));
+    --gradient-card: linear-gradient(160deg, hsl(40 25% 96%), hsl(38 30% 93%));
+
+    --shadow-elegant: 0 8px 32px -8px hsl(38 60% 45% / 0.15);
+    --shadow-card: 0 4px 20px -4px hsl(30 10% 15% / 0.08);
+    --shadow-glow: 0 0 40px hsl(38 60% 45% / 0.12);
+  }
+
+  .dark {
+    --background: 30 10% 8%;
+    --foreground: 40 20% 90%;
+    --card: 30 10% 12%;
+    --card-foreground: 40 20% 90%;
+    --popover: 30 10% 8%;
+    --popover-foreground: 40 20% 90%;
+    --primary: 38 55% 50%;
+    --primary-foreground: 30 10% 8%;
+    --secondary: 30 10% 18%;
+    --secondary-foreground: 40 20% 85%;
+    --muted: 30 8% 20%;
+    --muted-foreground: 30 12% 55%;
+    --accent: 30 10% 18%;
+    --accent-foreground: 40 20% 90%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 30 10% 20%;
+    --input: 30 10% 20%;
+    --ring: 38 55% 50%;
+    --gold: 38 55% 50%;
+    --gold-light: 40 45% 65%;
+    --gold-dark: 35 60% 35%;
+    --ivory: 30 10% 8%;
+    --parchment: 30 10% 12%;
+    --ink: 40 20% 90%;
+    --ink-light: 40 15% 65%;
+  }
+}
+
+@layer base {
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Noto Serif SC', serif;
+  }
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+  }
+
+  .font-serif-cn {
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .gradient-parchment {
+    background: var(--gradient-parchment);
+  }
+
+  .gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--gold) / 0.5),
+      hsl(var(--gold)),
+      hsl(var(--gold) / 0.5),
+      transparent
+    );
+  }
+}
